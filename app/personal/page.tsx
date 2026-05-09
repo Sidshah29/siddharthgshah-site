@@ -1,15 +1,16 @@
-import Navigation from "./components/Navigation";
+import Navigation from "@/app/components/Navigation";
 
-export default function Home() {
+export default function PersonalPage() {
   return (
     <main className="bg-ink text-bone min-h-screen">
-      <Navigation variant="home" />
+      <Navigation variant="sub" />
       <section className="container-custom pt-40 pb-32">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-bone-mute">
-          Rebuilding —
+          Mind &amp; Margin —
         </p>
         <p className="font-display text-2xl text-bone-dim mt-4 max-w-xl">
-          The site is mid-migration to v3. Sections will reappear as they land.
+          Reassembling. Writings, photography, and the longer reading list will
+          return shortly.
         </p>
       </section>
     </main>
