@@ -76,9 +76,13 @@ export default function Navigation({ variant = "home" }: NavigationProps) {
         style={{ scaleX }}
       />
 
-      {/* Top nav — Liquid Glass surface 1 */}
+      {/* Top nav — Liquid Glass surface 1.
+          Tailwind backdrop utilities are on the element itself; .top-nav adds
+          colour, edge, isolation and the transition. .scrolled bumps saturation. */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-40 top-nav ${scrolled ? "scrolled" : ""}`}
+        className={`fixed top-0 left-0 right-0 z-40 top-nav backdrop-blur-2xl ${
+          scrolled ? "backdrop-saturate-[1.8] scrolled" : "backdrop-saturate-[1.2]"
+        }`}
         aria-label="Main navigation"
       >
         <div className="container-custom flex items-center justify-between py-4 gap-6">

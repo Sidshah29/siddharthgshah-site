@@ -112,19 +112,18 @@ body {
    Saturation is the differentiator vs. plain frosted glass.
    ───────────────────────────────────────────────────────────────────────── */
 
-/* Surface 1: Top navigation. Saturation intensifies on scroll. */
+/* Surface 1: Top navigation. Saturation intensifies on scroll.
+   No position rule here — Tailwind utilities own the layout (fixed top-0).
+   isolation creates a stacking context so backdrop-filter renders cleanly.
+   backdrop-filter applied via Tailwind utilities on the element to avoid the
+   autoprefixer dropping the unprefixed property when both are co-located. */
 .top-nav {
-  background: rgba(6, 7, 10, 0.55);
-  backdrop-filter: blur(24px) saturate(120%);
-  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  background-color: rgba(6, 7, 10, 0.55);
   border-bottom: 1px solid rgba(224, 160, 107, 0.08);
-  transition: backdrop-filter 400ms ease-out, -webkit-backdrop-filter 400ms ease-out;
-  position: relative;
   isolation: isolate;
-}
-.top-nav.scrolled {
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transition-property: backdrop-filter, -webkit-backdrop-filter;
+  transition-duration: 400ms;
+  transition-timing-function: ease-out;
 }
 
 /* Legacy alias kept so nothing breaks while sections are being rebuilt */

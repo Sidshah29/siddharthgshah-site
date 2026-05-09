@@ -10,7 +10,7 @@ export const identity = {
   linkedin: "https://linkedin.com/in/siddharth29shah",
   linkedinHandle: "/in/siddharth29shah",
   instagram: "https://instagram.com/sidshah29",
-  instagramHandle: "@siddharth29shah",
+  instagramHandle: "@sidshah29",
   github: "https://github.com/siddharth29shah",
   cvGeneralUrl: "/cv-general.pdf",
   cvIgrUrl: "/cv-igr.pdf",
