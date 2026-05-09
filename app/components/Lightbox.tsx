@@ -38,7 +38,7 @@ export default function Lightbox({ images, open, onClose, onNext, onPrev }: Ligh
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] lightbox-overlay flex items-center justify-center p-6 md:p-12"
+          className="fixed inset-0 z-[200] lightbox-overlay backdrop-blur-3xl backdrop-saturate-[2.2] flex items-center justify-center p-6 md:p-12"
           onClick={onClose}
         >
           <button

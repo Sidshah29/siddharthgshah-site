@@ -60,7 +60,7 @@ function AnchorCard({ project }: { project: AnchorProject }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7 }}
-      className="now-building-card w-full max-w-[720px] rounded-[4px] p-6 md:p-8"
+      className="now-building-card w-full max-w-[720px] rounded-[4px] p-6 md:p-8 hover:backdrop-blur-xl hover:backdrop-saturate-[1.6]"
     >
       {/* Top row — chip and status */}
       <motion.div layout="position" className="flex items-start justify-between gap-4">

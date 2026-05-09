@@ -136,32 +136,33 @@ body {
   isolation: isolate;
 }
 
-/* Surface 2: Now-Building card hover. The inset ring is the visible lensing edge. */
+/* Surface 2: Now-Building card hover. The inset ring is the visible lensing edge.
+   backdrop-filter is applied via Tailwind hover utilities on the element to
+   avoid the autoprefixer-strip-the-standard-property bug. */
 .now-building-card {
-  background: rgba(16, 18, 26, 1);
+  background-color: rgba(16, 18, 26, 1);
   border: 1px solid rgba(245, 244, 238, 0.06);
   transition:
-    background 400ms ease-out,
+    background-color 400ms ease-out,
     backdrop-filter 400ms ease-out,
     -webkit-backdrop-filter 400ms ease-out,
     box-shadow 400ms ease-out,
     border-color 400ms ease-out;
 }
 .now-building-card:hover {
-  background: rgba(16, 18, 26, 0.6);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background-color: rgba(16, 18, 26, 0.6);
   border-color: rgba(224, 160, 107, 0.3);
   box-shadow:
     0 1px 0 rgba(224, 160, 107, 0.15) inset,
     0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-/* Surface 3: Photography lightbox — high saturation backdrop. */
+/* Surface 3: Photography lightbox — high saturation backdrop.
+   Tailwind utilities on the element supply blur/saturate; this rule supplies
+   the colour. The autoprefixer-strip bug applies here too if both
+   declarations are colocated, so we keep this minimal. */
 .lightbox-overlay {
-  background: rgba(6, 7, 10, 0.55);
-  backdrop-filter: blur(40px) saturate(220%);
-  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  background-color: rgba(6, 7, 10, 0.55);
 }
 
 /* Fallback for browsers without backdrop-filter support */
