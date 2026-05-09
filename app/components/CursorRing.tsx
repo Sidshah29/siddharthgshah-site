@@ -1,59 +1,69 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+
+// v3 Cursor Ring (per brief §13).
+// Bug fixes vs v2: hydration guard so the ring never appears during SSR mismatch,
+// matchMedia check so touch devices see no flicker, sessionStorage-persisted
+// disable toggle (some environments forbid localStorage), strict two-state animation.
 
 export default function CursorRing() {
-  const [hovered, setHovered] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [isTouch, setIsTouch] = useState(true);
-
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const x = useSpring(cursorX, { damping: 25, stiffness: 300 });
-  const y = useSpring(cursorY, { damping: 25, stiffness: 300 });
+  const [isMounted, setIsMounted] = useState(false);
+  const [hasHover, setHasHover] = useState(false);
+  const [cursorEnabled, setCursorEnabled] = useState(true);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!window.matchMedia("(hover: hover)").matches) return;
-    setIsTouch(false);
+    setIsMounted(true);
+
+    const matchMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setHasHover(matchMedia.matches);
+
+    const stored = sessionStorage.getItem("cursor-enabled");
+    if (stored === "false") setCursorEnabled(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !hasHover || !cursorEnabled) {
+      document.body.classList.remove("cursor-active");
+      return;
+    }
+
+    document.body.classList.add("cursor-active");
 
     const move = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (!visible) setVisible(true);
+      if (!ringRef.current) return;
+      ringRef.current.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
     };
 
-    const over = (e: MouseEvent) => {
-      const t = e.target as HTMLElement;
-      setHovered(!!t.closest("a, button, [data-cursor='hover']"));
+    const isInteractive = (target: EventTarget | null) => {
+      if (!(target instanceof Element)) return false;
+      return Boolean(target.closest("a, button, [data-cursor='hover']"));
+    };
+
+    const enter = (e: MouseEvent) => {
+      if (!ringRef.current) return;
+      if (isInteractive(e.target)) ringRef.current.classList.add("cursor-ring--hover");
+    };
+
+    const leave = (e: MouseEvent) => {
+      if (!ringRef.current) return;
+      if (isInteractive(e.target)) ringRef.current.classList.remove("cursor-ring--hover");
     };
 
     window.addEventListener("mousemove", move);
-    document.addEventListener("mouseover", over);
+    document.addEventListener("mouseover", enter);
+    document.addEventListener("mouseout", leave);
+
     return () => {
       window.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseover", over);
+      document.removeEventListener("mouseover", enter);
+      document.removeEventListener("mouseout", leave);
+      document.body.classList.remove("cursor-active");
     };
-  }, [cursorX, cursorY, visible]);
+  }, [isMounted, hasHover, cursorEnabled]);
 
-  if (isTouch) return null;
+  if (!isMounted || !hasHover || !cursorEnabled) return null;
 
-  return (
-    <motion.div
-      className="fixed pointer-events-none z-[9999]"
-      style={{ x, y, translateX: "-50%", translateY: "-50%" }}
-    >
-      <motion.div
-        animate={{
-          width:           hovered ? 40 : 24,
-          height:          hovered ? 40 : 24,
-          backgroundColor: hovered ? "rgba(29, 78, 216, 0.2)" : "transparent",
-          opacity:         visible ? 1 : 0,
-        }}
-        transition={{ duration: 0.2 }}
-        className="rounded-full border border-bone"
-        style={{ mixBlendMode: "difference" }}
-      />
-    </motion.div>
-  );
+  return <div ref={ringRef} className="cursor-ring" aria-hidden="true" />;
 }
