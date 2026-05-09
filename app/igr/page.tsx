@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { igrPage } from "@/lib/content";
 import Navigation from "@/app/components/Navigation";
+import CursorRing from "@/app/components/CursorRing";
+import VoicesISection from "./components/VoicesISection";
 
 function InvestigationSection({
   section,
@@ -73,6 +75,7 @@ export default function IgrPage() {
 
   return (
     <main className="bg-ink text-bone">
+      <CursorRing />
       <Navigation variant="igr" />
 
       {/* Letter section */}
@@ -180,7 +183,9 @@ export default function IgrPage() {
         </div>
       </section>
 
-      {/* Closing note — full Voices section + new closing line land in step 7 */}
+      <VoicesISection />
+
+      {/* Closing note */}
       <section className="py-16 border-t border-ink-300">
         <div className="container-custom max-w-4xl text-center">
           <motion.p
