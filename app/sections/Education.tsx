@@ -40,13 +40,16 @@ export default function Education() {
               <p className="font-sans text-base text-bone-dim mt-1">
                 {education.priorMajor}
               </p>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-bone-mute mt-3">
-                {education.graduating}
-              </p>
             </div>
 
-            <DomainBlock label={education.domainsLabel} items={education.domains} />
-            <DomainBlock label={education.personalLabel} items={education.personal} />
+            <DomainBlock
+              label={education.domainsLabel}
+              items={education.domains}
+            />
+            <DomainBlock
+              label={education.personalLabel}
+              items={education.personal}
+            />
           </div>
         </motion.div>
       </div>
@@ -66,7 +69,9 @@ function DomainBlock({ label, items }: { label: string; items: string[] }) {
           <span key={i}>
             {item}
             {i < items.length - 1 && (
-              <span className="text-bone-mute mx-2" aria-hidden="true">·</span>
+              <span className="text-bone-mute mx-2" aria-hidden="true">
+                ·
+              </span>
             )}
           </span>
         ))}
