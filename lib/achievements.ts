@@ -5,16 +5,16 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type LeadershipRole = {
-  year: string;          // "2024–"  for ongoing,  "2023" for completed
-  role: string;          // uppercase, mono ("PRESIDENT")
-  organisation: string;  // Fraunces
-  description: string;   // one line
+  year: string; // "2024–"  for ongoing,  "2023" for completed
+  role: string; // uppercase, mono ("PRESIDENT")
+  organisation: string; // Fraunces
+  description: string; // one line
 };
 
 export type Recognition = {
   year: string;
-  title: string;         // uppercase, mono
-  body: string;          // issuing body, Fraunces
+  title: string; // uppercase, mono
+  body: string; // issuing body, Fraunces
   description: string;
 };
 

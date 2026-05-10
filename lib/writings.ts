@@ -6,19 +6,33 @@
 export type Writing = {
   title: string;
   excerpt: string;
-  date: string;          // "April 2026"
-  pdfUrl?: string;       // local PDF
-  externalUrl?: string;  // for pieces published elsewhere
+  date: string; // "April 2026"
+  pdfUrl?: string; // local PDF
+  externalUrl?: string; // for pieces published elsewhere
 };
 
 export const writings: Writing[] = [
   {
     title:
-      "Into the Wild — Christopher McCandless and the Cost of Absolute Freedom",
+      "Helming nous in the autarkic inner tempest - Into the Wild (Alexander Supertramp)",
     excerpt:
       "McCandless rejected the gilded confines of liberty for what he believed was its purer form — and discovered, as Rousseau warned, that absolute freedom isolates as surely as it liberates.",
-    date: "April 2025",
+    date: "March 2024",
     pdfUrl: "/writings/into-the-wild.pdf",
+  },
+  {
+    title: "Raushni",
+    excerpt:
+      "Katra katra surkh ye behra, lehre-daryai, ghoont gayi afsaane, dard ye utra cheer se gehra, hamne aakhein jo moondi, tu kargaya ujaale veerane",
+    date: "October 2024",
+    pdfUrl: "Coming Soon",
+  },
+  {
+    title: "Samsarah",
+    excerpt:
+      "Death remains a formless notion, the biggest boat, in an endless ocean",
+    date: "2019",
+    pdfUrl: "Coming Soon",
   },
   {
     title: "The States That Pay vs. The States That Receive",
@@ -30,4 +44,4 @@ export const writings: Writing[] = [
 ];
 
 // Target count per §12.2 / §12.3 — render ghost cards for the gap.
-export const writingsTarget = 6;
+export const writingsTarget = 4;
